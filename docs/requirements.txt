@@ -1,0 +1,4 @@
+Sphinx
+sphinx-bootstrap-theme
+sphinxcontrib-spelling
+pyenchant

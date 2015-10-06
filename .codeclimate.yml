@@ -1,0 +1,29 @@
+engines:
+  duplication:
+    enabled: true
+    config:
+      languages:
+        - python
+    exclude_fingerprints:
+      - 62c81bc54b881c64ea6a62ad7f3fab98
+      - 6c7a4ed71c85b9ebed7c0b2d0d6f09c0
+      - c8a32c143c1feb9b4a97c25fcc5ef75a
+      - c936bf0c88b79b5a3e8d8e7da437f592
+      - a05d208bdff683980279c64a77f811f5
+      - 0729e81ba521c64ab1a62b0d58002627
+      - f8522228e340e62feb970fc63de3ae7d
+  fixme:
+    enabled: true
+  pep8:
+    enabled: true
+  radon:
+    enabled: true
+    config:
+      threshold: "C"
+exclude_paths:
+- "tests/*"
+- "docs/*"
+- "examples/*"
+ratings:
+  paths:
+  - "**.py"

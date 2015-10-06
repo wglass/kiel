@@ -1,0 +1,6 @@
+Exceptions
+==========
+
+.. toctree::
+
+   modules/exc
