@@ -15,6 +15,7 @@ import kiel.events
 import kiel.exc
 import kiel.iterables
 import kiel.protocol.coordinator
+import kiel.protocol.describe_groups
 import kiel.protocol.fetch
 import kiel.protocol.join_group
 import kiel.protocol.leave_group
@@ -50,6 +51,7 @@ modules_to_test = (
     kiel.exc,
     kiel.iterables,
     kiel.protocol.coordinator,
+    kiel.protocol.describe_groups,
     kiel.protocol.fetch,
     kiel.protocol.join_group,
     kiel.protocol.leave_group,

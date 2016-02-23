@@ -24,6 +24,7 @@ API_KEYS = {
     "heartbeat": 12,
     "leave_group": 13,
     "sync_group": 14,
+    "describe_groups": 15,
     "list_groups": 16,
 }
 
