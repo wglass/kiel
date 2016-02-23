@@ -5,7 +5,7 @@ from tornado import testing
 
 from kiel import exc
 from kiel.protocol import (
-    consumer_metadata, offset_fetch, offset_commit, fetch, messages, errors
+    coordinator, offset_fetch, offset_commit, fetch, messages, errors
 )
 from kiel.clients import grouped
 
@@ -21,9 +21,9 @@ class GroupedClientTests(cases.ClientTestCase):
 
         for broker_id in (1, 3, 8):
             self.set_responses(
-                broker_id=broker_id, api="consumer_metadata",
+                broker_id=broker_id, api="group_coordinator",
                 responses=[
-                    consumer_metadata.ConsumerMetadataResponse(
+                    coordinator.GroupCoordinatorResponse(
                         error_code=errors.no_error,
                         coordinator_id=3,
                         coordinator_host="kafka02",
@@ -124,12 +124,12 @@ class GroupedClientTests(cases.ClientTestCase):
 
         for broker_id in (1, 3, 8):
             self.set_responses(
-                broker_id=broker_id, api="consumer_metadata",
+                broker_id=broker_id, api="group_coordinator",
                 responses=[
-                    consumer_metadata.ConsumerMetadataResponse(
+                    coordinator.GroupCoordinatorResponse(
                         error_code=errors.request_timed_out,
                     ),
-                    consumer_metadata.ConsumerMetadataResponse(
+                    coordinator.GroupCoordinatorResponse(
                         error_code=errors.no_error,
                         coordinator_id=8,
                         coordinator_host="kafka02",
@@ -153,12 +153,12 @@ class GroupedClientTests(cases.ClientTestCase):
 
         for broker_id in (1, 3, 8):
             self.set_responses(
-                broker_id=broker_id, api="consumer_metadata",
+                broker_id=broker_id, api="group_coordinator",
                 responses=[
-                    consumer_metadata.ConsumerMetadataResponse(
+                    coordinator.GroupCoordinatorResponse(
                         error_code=errors.unknown
                     ),
-                    consumer_metadata.ConsumerMetadataResponse(
+                    coordinator.GroupCoordinatorResponse(
                         error_code=errors.no_error,
                         coordinator_id=8,
                         coordinator_host="kafka02",

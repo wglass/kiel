@@ -97,27 +97,27 @@ class ClientTests(cases.ClientTestCase):
 
     @testing.gen_test
     def test_send_error_on_one_broker(self):
-        metadata_response = Mock(api="consumer_metadata")
+        metadata_response = Mock(api="group_coordinator")
         self.set_responses(
             broker_id=1, api="metadata",
             responses=[Exception()],
         )
         self.set_responses(
-            broker_id=8, api="consumer_metadata",
+            broker_id=8, api="group_coordinator",
             responses=[metadata_response]
         )
 
         c = client.Client(["kafka01", "kafka02"])
-        c.handle_consumer_metadata_response = Mock()
+        c.handle_group_coordinator_response = Mock()
 
         request1 = Mock(api="metadata")
-        request2 = Mock(api="consumer_metadata")
+        request2 = Mock(api="group_coordinator")
 
         results = yield c.send({1: request1, 8: request2})
 
         self.assertEqual(
             results,
-            {8: c.handle_consumer_metadata_response.return_value}
+            {8: c.handle_group_coordinator_response.return_value}
         )
 
         self.assert_sent(1, request1)
@@ -145,23 +145,23 @@ class ClientTests(cases.ClientTestCase):
 
     @testing.gen_test
     def test_send_with_handlers(self):
-        metadata_response = Mock(api="consumer_metadata")
+        metadata_response = Mock(api="group_coordinator")
         fetch_response = Mock(api="fetch")
         self.set_responses(
             broker_id=1, api="fetch",
             responses=[fetch_response],
         )
         self.set_responses(
-            broker_id=8, api="consumer_metadata",
+            broker_id=8, api="group_coordinator",
             responses=[metadata_response]
         )
 
         c = client.Client(["kafka01", "kafka02"])
-        c.handle_consumer_metadata_response = Mock()
+        c.handle_group_coordinator_response = Mock()
         c.handle_fetch_response = Mock()
 
         request1 = Mock(api="fetch")
-        request2 = Mock(api="consumer_metadata")
+        request2 = Mock(api="group_coordinator")
 
         results = yield c.send({1: request1, 8: request2})
 
@@ -169,14 +169,14 @@ class ClientTests(cases.ClientTestCase):
             results,
             {
                 1: c.handle_fetch_response.return_value,
-                8: c.handle_consumer_metadata_response.return_value
+                8: c.handle_group_coordinator_response.return_value
             }
         )
 
         self.assert_sent(1, request1)
         self.assert_sent(8, request2)
 
-        c.handle_consumer_metadata_response.assert_called_once_with(
+        c.handle_group_coordinator_response.assert_called_once_with(
             metadata_response
         )
         c.handle_fetch_response.assert_called_once_with(fetch_response)
@@ -186,8 +186,8 @@ class ClientTests(cases.ClientTestCase):
     @testing.gen_test
     def test_send_with_async_handlers(self):
         self.set_responses(
-            broker_id=1, api="consumer_metadata",
-            responses=[Mock(api="consumer_metadata")],
+            broker_id=1, api="group_coordinator",
+            responses=[Mock(api="group_coordinator")],
         )
         self.set_responses(
             broker_id=8, api="fetch",
@@ -195,8 +195,8 @@ class ClientTests(cases.ClientTestCase):
         )
 
         c = client.Client(["kafka01", "kafka02"])
-        c.handle_consumer_metadata_response = Mock()
-        c.handle_consumer_metadata_response.return_value = self.future_value(
+        c.handle_group_coordinator_response = Mock()
+        c.handle_group_coordinator_response.return_value = self.future_value(
             "metadata handled!"
         )
         c.handle_fetch_response = Mock()
@@ -205,7 +205,7 @@ class ClientTests(cases.ClientTestCase):
         )
 
         results = yield c.send(
-            {1: Mock(api="consumer_metadata"), 8: Mock(api="fetch")}
+            {1: Mock(api="group_coordinator"), 8: Mock(api="fetch")}
         )
 
         self.assertEqual(

@@ -6,9 +6,7 @@ import six
 from tornado import gen
 
 from kiel import constants, exc
-from kiel.protocol import (
-    consumer_metadata, offset_fetch, offset_commit, errors
-)
+from kiel.protocol import coordinator, offset_fetch, offset_commit, errors
 from kiel.zookeeper.allocator import PartitionAllocator
 
 from .consumer import BaseConsumer
@@ -106,9 +104,7 @@ class GroupedConsumer(BaseConsumer):
         contain coordinator metadata so each broker in the cluster is tried
         until one works.
         """
-        request = consumer_metadata.ConsumerMetadataRequest(
-            group=self.group_name
-        )
+        request = coordinator.GroupCoordinatorRequest(group=self.group_name)
         determined = False
         while not determined:
             broker_ids = list(self.cluster)
@@ -120,7 +116,7 @@ class GroupedConsumer(BaseConsumer):
                 if determined:
                     break
 
-    def handle_consumer_metadata_response(self, response):
+    def handle_group_coordinator_response(self, response):
         """
         Handler for consumer metadata api responses.
 

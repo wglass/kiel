@@ -14,7 +14,7 @@ import kiel.constants
 import kiel.events
 import kiel.exc
 import kiel.iterables
-import kiel.protocol.consumer_metadata
+import kiel.protocol.coordinator
 import kiel.protocol.fetch
 import kiel.protocol.messages
 import kiel.protocol.metadata
@@ -45,7 +45,7 @@ modules_to_test = (
     kiel.events,
     kiel.exc,
     kiel.iterables,
-    kiel.protocol.consumer_metadata,
+    kiel.protocol.coordinator,
     kiel.protocol.fetch,
     kiel.protocol.messages,
     kiel.protocol.metadata,
