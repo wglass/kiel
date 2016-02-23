@@ -52,6 +52,21 @@ ERROR_CODES = {
     14: "offsets_load_in_progress",
     15: "coordinator_not_available",
     16: "not_coordinator",
+    17: "invalid_topic",
+    18: "record_list_too_large",
+    19: "not_enough_replicas",
+    20: "not_enough_replicas_after_append",
+    21: "invalid_required_acks",
+    22: "illegal_generation",
+    23: "inconsistent_group_protocol",
+    24: "invalid_group_id",
+    25: "unknown_member_id",
+    26: "invalid_session_timeout",
+    27: "rebalance_in_progress",
+    28: "invalid_commit_offset_size",
+    29: "topic_authorization_failed",
+    30: "group_authorization_failed",
+    31: "cluster_authorization_failed",
 }
 #: Set of error codes marked "retryable" by the Kafka docs.
 RETRIABLE_CODES = set([
@@ -63,4 +78,6 @@ RETRIABLE_CODES = set([
     "offsets_load_in_progress",
     "coordinator_not_available",
     "not_coordinator",
+    "not_enough_replicas",
+    "not_enough_replicas_after_append",
 ])
