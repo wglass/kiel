@@ -13,3 +13,4 @@ Protocol Definition
    modules/protocol.heartbeat
    modules/protocol.join_group
    modules/protocol.sync_group
+   modules/protocol.leave_group

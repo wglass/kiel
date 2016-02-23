@@ -22,6 +22,7 @@ API_KEYS = {
     "group_coordinator": 10,
     "join_group": 11,
     "heartbeat": 12,
+    "leave_group": 13,
     "sync_group": 14,
 }
 
