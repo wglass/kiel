@@ -7,7 +7,7 @@ from tornado import ioloop, iostream, gen, concurrent
 
 from kiel.exc import ConnectionError
 from kiel.protocol import (
-    metadata, consumer_metadata,
+    metadata, coordinator,
     produce, fetch,
     offset, offset_commit, offset_fetch
 )
@@ -27,7 +27,7 @@ response_classes = {
     "offset": offset.OffsetResponse,
     "offset_commit": offset_commit.OffsetCommitResponse,
     "offset_fetch": offset_fetch.OffsetFetchResponse,
-    "consumer_metadata": consumer_metadata.ConsumerMetadataResponse
+    "group_coordinator": coordinator.GroupCoordinatorResponse
 }
 
 

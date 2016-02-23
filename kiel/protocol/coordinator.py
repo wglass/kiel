@@ -3,39 +3,39 @@ from .response import Response
 from .primitives import String, Int16, Int32
 
 
-api_name = "consumer_metadata"
+api_name = "group_coordinator"
 
 __all__ = [
-    "ConsumerMetadataRequest",
-    "ConsumerMetadataResponse",
+    "GroupCoordinatorRequest",
+    "GroupCoordinatorResponse",
 ]
 
 
-class ConsumerMetadataRequest(Request):
+class GroupCoordinatorRequest(Request):
     """
     ::
 
-      ConsumerMetadataRequest =>
+      GroupCoordinatorRequest =>
         group_id => String
     """
-    api = "consumer_metadata"
+    api = "group_coordinator"
 
     parts = (
         ("group", String),
     )
 
 
-class ConsumerMetadataResponse(Response):
+class GroupCoordinatorResponse(Response):
     """
     ::
 
-      ConsumerMetadataResponse =>
+      GroupCoordinatorResponse =>
         error_code => Int16
         coordinator_id => Int32
         coordinator_host => String
         coordinator_port => Int32
     """
-    api = "consumer_metadata"
+    api = "group_coordinator"
 
     parts = (
         ("error_code", Int16),

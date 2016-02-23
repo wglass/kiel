@@ -14,8 +14,12 @@ import kiel.constants
 import kiel.events
 import kiel.exc
 import kiel.iterables
-import kiel.protocol.consumer_metadata
+import kiel.protocol.coordinator
+import kiel.protocol.describe_groups
 import kiel.protocol.fetch
+import kiel.protocol.join_group
+import kiel.protocol.leave_group
+import kiel.protocol.list_groups
 import kiel.protocol.messages
 import kiel.protocol.metadata
 import kiel.protocol.offset
@@ -26,6 +30,7 @@ import kiel.protocol.primitives
 import kiel.protocol.produce
 import kiel.protocol.request
 import kiel.protocol.response
+import kiel.protocol.sync_group
 import kiel.zookeeper.allocator
 import kiel.zookeeper.party
 import kiel.zookeeper.shared_set
@@ -45,8 +50,12 @@ modules_to_test = (
     kiel.events,
     kiel.exc,
     kiel.iterables,
-    kiel.protocol.consumer_metadata,
+    kiel.protocol.coordinator,
+    kiel.protocol.describe_groups,
     kiel.protocol.fetch,
+    kiel.protocol.join_group,
+    kiel.protocol.leave_group,
+    kiel.protocol.list_groups,
     kiel.protocol.messages,
     kiel.protocol.metadata,
     kiel.protocol.offset,
@@ -57,6 +66,7 @@ modules_to_test = (
     kiel.protocol.produce,
     kiel.protocol.request,
     kiel.protocol.response,
+    kiel.protocol.sync_group,
     kiel.zookeeper.allocator,
     kiel.zookeeper.party,
     kiel.zookeeper.shared_set,

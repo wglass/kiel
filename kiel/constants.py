@@ -19,7 +19,13 @@ API_KEYS = {
     "metadata": 3,
     "offset_commit": 8,
     "offset_fetch": 9,
-    "consumer_metadata": 10,
+    "group_coordinator": 10,
+    "join_group": 11,
+    "heartbeat": 12,
+    "leave_group": 13,
+    "sync_group": 14,
+    "describe_groups": 15,
+    "list_groups": 16,
 }
 
 
