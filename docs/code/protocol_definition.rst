@@ -11,3 +11,4 @@ Protocol Definition
    modules/protocol.offset_fetch
    modules/protocol.coordinator
    modules/protocol.heartbeat
+   modules/protocol.join_group

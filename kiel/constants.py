@@ -20,6 +20,7 @@ API_KEYS = {
     "offset_commit": 8,
     "offset_fetch": 9,
     "group_coordinator": 10,
+    "join_group": 11,
     "heartbeat": 12,
 }
 
