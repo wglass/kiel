@@ -14,3 +14,4 @@ Protocol Definition
    modules/protocol.join_group
    modules/protocol.sync_group
    modules/protocol.leave_group
+   modules/protocol.list_groups

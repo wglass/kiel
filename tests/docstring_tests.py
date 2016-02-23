@@ -18,6 +18,7 @@ import kiel.protocol.coordinator
 import kiel.protocol.fetch
 import kiel.protocol.join_group
 import kiel.protocol.leave_group
+import kiel.protocol.list_groups
 import kiel.protocol.messages
 import kiel.protocol.metadata
 import kiel.protocol.offset
@@ -52,6 +53,7 @@ modules_to_test = (
     kiel.protocol.fetch,
     kiel.protocol.join_group,
     kiel.protocol.leave_group,
+    kiel.protocol.list_groups,
     kiel.protocol.messages,
     kiel.protocol.metadata,
     kiel.protocol.offset,
