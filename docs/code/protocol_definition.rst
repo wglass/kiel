@@ -12,3 +12,4 @@ Protocol Definition
    modules/protocol.coordinator
    modules/protocol.heartbeat
    modules/protocol.join_group
+   modules/protocol.sync_group

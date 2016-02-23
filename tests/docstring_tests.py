@@ -27,6 +27,7 @@ import kiel.protocol.primitives
 import kiel.protocol.produce
 import kiel.protocol.request
 import kiel.protocol.response
+import kiel.protocol.sync_group
 import kiel.zookeeper.allocator
 import kiel.zookeeper.party
 import kiel.zookeeper.shared_set
@@ -59,6 +60,7 @@ modules_to_test = (
     kiel.protocol.produce,
     kiel.protocol.request,
     kiel.protocol.response,
+    kiel.protocol.sync_group,
     kiel.zookeeper.allocator,
     kiel.zookeeper.party,
     kiel.zookeeper.shared_set,
