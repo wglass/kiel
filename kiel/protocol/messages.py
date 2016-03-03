@@ -104,7 +104,7 @@ class MessageSet(object):
         """
         return self.messages == other.messages
 
-    def __str__(self):
+    def __repr__(self):
         return "[%s]" % ", ".join([str(m) for _, m in self.messages])
 
     @classmethod
@@ -214,5 +214,5 @@ class Message(Part):
         """
         return self.key == other.key and self.value == other.value
 
-    def __str__(self):
+    def __repr__(self):
         return "%s => %s" % (self.key, self.value)

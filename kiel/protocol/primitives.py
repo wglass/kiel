@@ -45,7 +45,7 @@ https://cwiki.apache.org/confluence/display/KAFKA/A+Guide+To+The+Kafka+Protocol
         """
         return self.value == other.value
 
-    def __str__(self):
+    def __repr__(self):
         return "%s(%s)" % (self.__class__.__name__, self.value)
 
 
@@ -133,8 +133,8 @@ class String(VariablePrimitive):
     """
     size_primitive = Int16
 
-    def __str__(self):
-        return '"' + self.value + '"'
+    def __repr__(self):
+        return '"%r"' % self.value
 
 
 class Bytes(VariablePrimitive):
@@ -212,5 +212,5 @@ class Array(Primitive):
 
         return values, offset
 
-    def __str__(self):
-        return "%s[%s]" % (self.item_class, ", ".join(map(str, self.value)))
+    def __repr__(self):
+        return "[%s]" % ", ".join(map(repr, self.value))
