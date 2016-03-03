@@ -134,7 +134,7 @@ class String(VariablePrimitive):
     size_primitive = Int16
 
     def __repr__(self):
-        return '"%r"' % self.value
+        return repr(self.value)
 
 
 class Bytes(VariablePrimitive):
