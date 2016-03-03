@@ -79,7 +79,7 @@ class Part(object):
         except AttributeError:
             return False
 
-    def __str__(self):
+    def __repr__(self):
 
         def subpart_string(part_info):
             part_name, part_class = part_info
