@@ -111,11 +111,15 @@ class Connection(object):
             try:
                 write_future.result()
             except Exception:
+                if not self.closing:
+                    log.exception("Error writing to socket.")
                 self.abort()
 
         try:
             self.stream.write(payload).add_done_callback(handle_write)
         except Exception:
+            if not self.closing:
+                log.exception("Error writing to socket.")
             self.abort()
 
         return f
@@ -135,6 +139,8 @@ class Connection(object):
             try:
                 message = yield self.read_message()
             except Exception:
+                if not self.closing:
+                    log.exception("Error reading from socket.")
                 self.abort()
                 return
 
