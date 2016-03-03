@@ -8,7 +8,7 @@ class PrimitivesTests(unittest.TestCase):
     def test_string_repr(self):
         s = primitives.String(u"foobar")
 
-        self.assertEqual(repr(s), '"u\'foobar\'"')
+        self.assertEqual(repr(s), '%r' % repr(u"foobar"))
 
     def test_array_repr(self):
         a = primitives.Array.of(primitives.Int32)([1, 3, 6, 9])
