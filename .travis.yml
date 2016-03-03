@@ -9,3 +9,10 @@ install: pip install tox
 script: tox
 after_success:
   - codecov
+deploy:
+  - provider: pypi
+    user: wglass
+    password:
+      secure: RJJ/fpRUe4BwZ15Bd/MMYdSLl4Kr6h4KfVa6As5VmXvEdo6pBIIA27naJOTn5XPwTnbl2btkURHNDBC/0qZWWk7hmrV/OkanFFSnJCWQCWGOBjUWgTUerXUQG03xc2tAg/YvlsVCr5F7WjKXpoZ9RQC9KVRGMobz4GsMiTE/tLCMLpd2gkVXcqZ8JEQg697gMeTs1PQzeKIsRsEpb8wnPoA7JhXutfMZJewgN6W877UAQsOCNWZv9vEE+2jv7DQiP3fi8f7HyDXxnwiBA48GD+h0z3IBlndLCRyVSoGBPeINoYGI5rJG2H7Pj7pUR43zuYPiiDVCzkzNvbUKtYDcL3ZE7SE9naJwGA9rMdKbb4R9lJkMy/ZrlW2Lox4JuMuR+o2IujgdWb4RyNJEvNZ0ig0eUeyFKCWn+HtAZh3oQejXJJDXRxRMSxGgld5JaJElF8nn+XKCyY1hDIFDbvaDhKDhr3HEatjoVK8sPgz/TzQPBRWScFWOvLAjp5sX9AAV/ZqMKsBtnTqLfMqGlx4Iha3f1RhXNbWgYXVaidXKBBNYZYKTLgRHN00m9IlzPLa6ZmDZpM0JbEl84VPjR5jDaBCA9h5dNofk4eNtpPvkKP+qtfwjm8W9Jam+/KP+ekjJRCLeSdre1RkqB2aGRsC4gGkjsRMpAAgb8SMKNCKaRHA=
+    on:
+      tags: true
