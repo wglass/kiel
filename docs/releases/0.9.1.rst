@@ -1,0 +1,10 @@
+0.9.1
+~~~~~
+
+  * Fix bug where Producer would prematurely discard pending messages if two flush()
+    calls happened before a response was processed.
+
+  * Added preliminary definitions of the new group-related APIs in Kafka 0.9.0 and
+    newer (along with the new error codes).
+
+  * Updated protocol objects' repr() methods to show their attribute values.
