@@ -63,8 +63,10 @@ class Producer(Client):
 
         # dictionary of topic -> messages
         self.unsent = collections.defaultdict(list)
-        # dictionary of topic -> partition -> messages
-        self.sent = collections.defaultdict(dict)
+        # dictionary of correlation id -> topic -> partition -> messages
+        self.sent = collections.defaultdict(
+            lambda: collections.defaultdict(dict)
+        )
 
     @property
     def unsent_count(self):
@@ -178,7 +180,9 @@ class Producer(Client):
                             )
                         )
                     )
-                    self.sent[topic][partition_id] = msgs
+                    self.sent[
+                        requests[leader].correlation_id
+                    ][topic][partition_id] = msgs
 
         for topic, msgs in six.iteritems(to_retry):
             self.queue_retries(topic, msgs)
@@ -204,15 +208,19 @@ class Producer(Client):
             for partition in topic.partitions:
                 code = partition.error_code
                 if code == errors.no_error:
-                    self.sent[topic.name].pop(partition.partition_id)
+                    pass
                 elif code in errors.retriable:
-                    msgs = self.sent[topic.name].pop(partition.partition_id)
+                    msgs = self.sent[response.correlation_id][topic.name].pop(
+                        partition.partition_id
+                    )
                     self.queue_retries(topic.name, msgs)
                 else:
                     log.error(
                         "Got error %s for topic %s partition %s",
                         ERROR_CODES[code], topic.name, partition.partition_id
                     )
+
+        self.sent.pop(response.correlation_id)
 
     @gen.coroutine
     def wind_down(self):

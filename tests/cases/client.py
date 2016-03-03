@@ -68,6 +68,7 @@ class ClientTestCase(AsyncTestCase):
             response = self.responses[broker_id][request.api].pop(0)
             if isinstance(response, Exception):
                 raise response
+            response.correlation_id = request.correlation_id
             raise gen.Return(response)
 
         broker.send.side_effect = mock_send
