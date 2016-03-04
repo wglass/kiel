@@ -1,3 +1,4 @@
+import contextlib
 import logging
 import socket
 import struct
@@ -80,6 +81,23 @@ class Connection(object):
         self.closing = True
         self.stream.close()
 
+    @contextlib.contextmanager
+    def socket_error_handling(self, failure_message):
+        """
+        helper contextmanager for handling errors during IOStream operations.
+
+        Handles the StreamClosedError case by setting the ``closing`` flag,
+        logs any unexpected exceptions with a failure message.
+        """
+        try:
+            yield
+        except iostream.StreamClosedError:
+            self.closing = True
+        except Exception:
+            if not self.closing:
+                log.exception(failure_message)
+            self.abort()
+
     def send(self, message):
         """
         Sends a serialized request to the broker and returns a pending future.
@@ -108,19 +126,11 @@ class Connection(object):
         self.pending[message.correlation_id] = f
 
         def handle_write(write_future):
-            try:
+            with self.socket_error_handling("Error writing to socket."):
                 write_future.result()
-            except Exception:
-                if not self.closing:
-                    log.exception("Error writing to socket.")
-                self.abort()
 
-        try:
+        with self.socket_error_handling("Error writing to socket."):
             self.stream.write(payload).add_done_callback(handle_write)
-        except Exception:
-            if not self.closing:
-                log.exception("Error writing to socket.")
-            self.abort()
 
         return f
 
@@ -136,15 +146,9 @@ class Connection(object):
         I/O loop via the `connect()` method.
         """
         while not self.closing:
-            try:
+            with self.socket_error_handling("Error reading from socket."):
                 message = yield self.read_message()
-            except Exception:
-                if not self.closing:
-                    log.exception("Error reading from socket.")
-                self.abort()
-                return
-
-            self.pending.pop(message.correlation_id).set_result(message)
+                self.pending.pop(message.correlation_id).set_result(message)
 
     def abort(self):
         """
