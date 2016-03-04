@@ -33,7 +33,7 @@ class Part(object):
         if not parts:
             parts = self.parts
 
-        format = []
+        fmt = []
         data = []
 
         for name, part_class in parts:
@@ -44,10 +44,10 @@ class Part(object):
 
             part_format, part_data = part.render()
 
-            format.extend(part_format)
+            fmt.extend(part_format)
             data.extend(part_data)
 
-        return "".join(format), data
+        return "".join(fmt), data
 
     @classmethod
     def parse(cls, buff, offset):
