@@ -15,9 +15,9 @@ Kiel: Kafka Tornado Client
     :alt: Build Status
     :target: https://travis-ci.org/wglass/kiel
 .. image::
-    https://codeclimate.com/github/wglass/kiel/badges/gpa.svg
-    :alt: Code Climate
-    :target: https://codeclimate.com/github/wglass/kiel
+    https://landscape.io/github/wglass/kiel/master/landscape.svg?style=flat
+    :alt: Code Health
+    :target: https://landscape.io/github/wglass/kiel/master
 .. image::
     https://codecov.io/github/wglass/kiel/coverage.svg?branch=master
     :alt: Codecov.io

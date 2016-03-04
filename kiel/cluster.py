@@ -5,7 +5,7 @@ from tornado import gen, iostream
 
 from kiel.protocol import metadata, errors
 from kiel.constants import DEFAULT_KAFKA_PORT
-from kiel.exc import ConnectionError, NoBrokersError
+from kiel.exc import BrokerConnectionError, NoBrokersError
 
 from .connection import Connection
 
@@ -92,7 +92,7 @@ class Cluster(object):
 
             try:
                 yield conn.connect()
-            except (iostream.StreamClosedError, ConnectionError):
+            except (iostream.StreamClosedError, BrokerConnectionError):
                 log.warn("Could not connect to bootstrap %s:%s", host, port)
                 continue
             except Exception:
@@ -162,7 +162,7 @@ class Cluster(object):
                     metadata.MetadataRequest(topics=topics)
                 )
                 break
-            except (iostream.StreamClosedError, ConnectionError):
+            except (iostream.StreamClosedError, BrokerConnectionError):
                 continue
 
         if not response:

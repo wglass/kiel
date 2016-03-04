@@ -41,7 +41,7 @@ class SingleConsumer(BaseConsumer):
         return self.cluster.topics
 
     @gen.coroutine
-    def determine_offsets(self, topic, start):
+    def determine_offsets(self, topic, start=None):
         """
         Sends OffsetRequests to the cluster for a given topic and start point.
 

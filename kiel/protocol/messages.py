@@ -69,7 +69,7 @@ class MessageSet(object):
         and the output collected int a single format and data list, prefaced
         with a single integer denoting the size of the message set.
         """
-        format = ["i"]
+        fmt = ["i"]
         data = []
         total_size = 0
 
@@ -85,14 +85,14 @@ class MessageSet(object):
             ])
             total_size += struct.calcsize("!" + message_format)
 
-            format.append(message_format)
+            fmt.append(message_format)
             data.extend(offset_data)
             data.extend(size_data)
             data.extend(message_data)
 
         data.insert(0, total_size)
 
-        return "".join(format), data
+        return "".join(fmt), data
 
     def __eq__(self, other):
         """
@@ -129,7 +129,7 @@ class MessageSet(object):
         while not offset == end:
             try:
                 message_offset, offset = Int64.parse(buff, offset)
-                message_size, offset = Int32.parse(buff, offset)
+                _, offset = Int32.parse(buff, offset)  # message size
                 message, offset = Message.parse(buff, offset)
             except struct.error:
                 # ending messages can sometimes be cut off
@@ -165,21 +165,21 @@ class Message(Part):
         ("value", Bytes),
     )
 
-    def render(self):
+    def render(self, parts=None):
         """
         Renders just like the base ``Part`` class, but with CRC32 verification.
         """
-        format, data = super(Message, self).render(self.parts[1:])
+        fmt, data = super(Message, self).render(self.parts[1:])
 
-        payload = struct.pack("!" + format, *data)
+        payload = struct.pack("!" + fmt, *data)
 
         crc = zlib.crc32(payload)
         if crc > (2**31):
             crc -= 2**32
 
-        format = "i%ds" % len(payload)
+        fmt = "i%ds" % len(payload)
 
-        return format, [crc, payload]
+        return fmt, [crc, payload]
 
     @classmethod
     def parse(cls, buff, offset):

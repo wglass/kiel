@@ -154,7 +154,7 @@ class ClusterTests(cases.AsyncTestCase):
         )
         self.add_broker(
             "kafka03", 9092,
-            connect_error=exc.ConnectionError("kafka03", 9092),
+            connect_error=exc.BrokerConnectionError("kafka03", 9092),
         )
 
         c = cluster.Cluster(["kafka01", "kafka02:9000", "kafka03"])
@@ -395,7 +395,7 @@ class ClusterTests(cases.AsyncTestCase):
         )
         self.add_broker(
             "kafka03", 9092,
-            connect_error=exc.ConnectionError("kafka03", 9092),
+            connect_error=exc.BrokerConnectionError("kafka03", 9092),
         )
 
         conn1 = cluster.Connection("kafka01", 9092)

@@ -12,7 +12,7 @@ in the Kafka wire protcol docs:
 
 https://cwiki.apache.org/confluence/display/KAFKA/A+Guide+To+The+Kafka+Protocol
     """
-    format = None
+    fmt = None
 
     def __init__(self, value):
         self.value = value
@@ -24,17 +24,17 @@ https://cwiki.apache.org/confluence/display/KAFKA/A+Guide+To+The+Kafka+Protocol
         The value is wrapped in a list, as there are some primitives that deal
         with multiple values.  Any caller of `render()` should expect a list.
         """
-        return self.format, [self.value]
+        return self.fmt, [self.value]
 
     @classmethod
     def parse(cls, buff, offset):
         """
         Given a buffer and offset, returns the parsed value and new offset.
 
-        Uses the ``format`` class attribute to unpack the data from the buffer
+        Uses the ``fmt`` class attribute to unpack the data from the buffer
         and determine the used up number of bytes.
         """
-        primitive_struct = struct.Struct("!" + cls.format)
+        primitive_struct = struct.Struct("!" + cls.fmt)
 
         value = primitive_struct.unpack_from(buff, offset)[0]
         offset += primitive_struct.size
@@ -69,7 +69,7 @@ class VariablePrimitive(Primitive):
           The value is expected to be string-able (wrapped in ``str()``) and is
           then encoded as UTF-8.
         """
-        size_format = self.size_primitive.format
+        size_format = self.size_primitive.fmt
 
         if self.value is None:
             return size_format, [-1]
@@ -84,9 +84,9 @@ class VariablePrimitive(Primitive):
 
         size = len(value)
 
-        format = "%s%ds" % (size_format, size)
+        fmt = "%s%ds" % (size_format, size)
 
-        return format, [size, value]
+        return fmt, [size, value]
 
     @classmethod
     def parse(cls, buff, offset):
@@ -118,28 +118,28 @@ class Int8(Primitive):
     """
     Represents an 8-bit signed integer.
     """
-    format = "b"
+    fmt = "b"
 
 
 class Int16(Primitive):
     """
     Represents an 16-bit signed integer.
     """
-    format = "h"
+    fmt = "h"
 
 
 class Int32(Primitive):
     """
     Represents an 32-bit signed integer.
     """
-    format = "i"
+    fmt = "i"
 
 
 class Int64(Primitive):
     """
     Represents an 64-bit signed integer.
     """
-    format = "q"
+    fmt = "q"
 
 
 class String(VariablePrimitive):
@@ -193,7 +193,7 @@ class Array(Primitive):
         if value is None:
             value = []
 
-        format = [Int32.format]
+        fmt = [Int32.fmt]
         data = [len(value)]
 
         for item_value in value:
@@ -203,10 +203,10 @@ class Array(Primitive):
                 item = item_value
 
             item_format, item_data = item.render()
-            format.extend(item_format)
+            fmt.extend(item_format)
             data.extend(item_data)
 
-        return "".join(format), data
+        return "".join(fmt), data
 
     @classmethod
     def parse(cls, buff, offset):
@@ -219,7 +219,7 @@ class Array(Primitive):
         count, offset = Int32.parse(buff, offset)
 
         values = []
-        for i in range(count):
+        for _ in range(count):
             value, new_offset = cls.item_class.parse(buff, offset)
 
             values.append(value)

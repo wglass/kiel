@@ -3,7 +3,7 @@ import logging
 import six
 from tornado import gen, iostream
 
-from kiel.exc import ConnectionError, UnhandledResponseError
+from kiel.exc import BrokerConnectionError, UnhandledResponseError
 from kiel.cluster import Cluster
 
 
@@ -82,7 +82,7 @@ class Client(object):
         while not iterator.done():
             try:
                 response = yield iterator.next()
-            except ConnectionError as e:
+            except BrokerConnectionError as e:
                 log.info("Connection to %s:%s lost", e.host, e.port)
                 self.heal_cluster = True
                 continue

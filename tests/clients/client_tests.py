@@ -58,7 +58,7 @@ class ClientTests(cases.ClientTestCase):
         self.set_responses(
             broker_id=1, api="metadata",
             responses=[
-                exc.ConnectionError("kafka01", 1234)
+                exc.BrokerConnectionError("kafka01", 1234)
             ]
         )
 

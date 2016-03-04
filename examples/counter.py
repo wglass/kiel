@@ -47,8 +47,6 @@ def run(c, args):
 
 
 def show_status():
-    global color_counter
-
     print (
         "counts: \n%s" % "\n".join([
             "\t%s: %s" % (color, count)
@@ -71,7 +69,7 @@ def main():
         show_status, args.status_interval * 1000
     )
 
-    def wind_down(f):
+    def wind_down(_):
         status_callback.stop()
         loop.stop()
 
