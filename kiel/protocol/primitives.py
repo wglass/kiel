@@ -1,5 +1,7 @@
 import struct
 
+import six
+
 
 class Primitive(object):
     """
@@ -72,7 +74,14 @@ class VariablePrimitive(Primitive):
         if self.value is None:
             return size_format, [-1]
 
-        value = bytes(str(self.value).encode("utf-8"))
+        value = self.value
+
+        if not isinstance(value, six.binary_type):
+            if not isinstance(value, six.string_types):
+                value = str(value)
+
+            value = value.encode("utf-8")
+
         size = len(value)
 
         format = "%s%ds" % (size_format, size)
@@ -93,7 +102,13 @@ class VariablePrimitive(Primitive):
 
         var_struct = struct.Struct("!%ds" % size)
 
-        value = var_struct.unpack_from(buff, offset)[0].decode("utf-8")
+        value = var_struct.unpack_from(buff, offset)[0]
+
+        try:
+            value = value.decode("utf-8")
+        except UnicodeDecodeError:
+            pass
+
         offset += var_struct.size
 
         return value, offset
@@ -134,7 +149,7 @@ class String(VariablePrimitive):
     size_primitive = Int16
 
     def __repr__(self):
-        return '"%r"' % self.value
+        return repr(self.value)
 
 
 class Bytes(VariablePrimitive):

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from tests import cases
 
 from mock import patch
@@ -455,7 +457,7 @@ class ProducerTests(cases.ClientTestCase):
             ]
         )
 
-        msgs = ["foo", "bar"]
+        msgs = [u"foö", "bar"]
 
         p = producer.Producer(
             ["kafka01"], batch_size=2, compression=constants.GZIP
@@ -482,7 +484,7 @@ class ProducerTests(cases.ClientTestCase):
                                             magic=0,
                                             attributes=0,
                                             key=None,
-                                            value=p.serializer("foo"),
+                                            value=p.serializer(u"foö"),
                                         ),
                                         messages.Message(
                                             magic=0,
