@@ -47,8 +47,6 @@ def run(c, args):
 
 
 def show_status():
-    global color_counter
-
     print (
         "counts: \n%s" % "\n".join([
             "\t%s: %s" % (color, count)

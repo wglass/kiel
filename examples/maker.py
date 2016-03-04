@@ -74,7 +74,6 @@ def run(p, args):
 
 
 def show_status():
-    global counter
     global last_count
     global last_status
 
