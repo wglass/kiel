@@ -47,10 +47,10 @@ class Producer(Client):
         def json_serializer(message):
             return json.dumps(message, sort_keys=True)
 
-        def null_key_maker(message):
+        def null_key_maker(_):
             return None
 
-        def random_partitioner(key, partitions):
+        def random_partitioner(_, partitions):
             return random.choice(partitions)
 
         self.serializer = serializer or json_serializer
