@@ -78,9 +78,9 @@ class Request(Part):
 
         payload_format, payload_data = self.render()
 
-        format = "".join(["!", preamble_format, payload_format])
+        fmt = "".join(["!", preamble_format, payload_format])
         data.extend(payload_data)
 
-        buff.write(struct.pack(format, *data))
+        buff.write(struct.pack(fmt, *data))
 
         return buff.getvalue()
