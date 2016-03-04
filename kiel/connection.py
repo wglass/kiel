@@ -166,7 +166,7 @@ class Connection(object):
         self.close()
         self.api_correlation.clear()
         while self.pending:
-            cid, pending = self.pending.popitem()
+            _, pending = self.pending.popitem()
             exc_info = sys.exc_info()
             if any(exc_info):
                 pending.set_exc_info(sys.exc_info())

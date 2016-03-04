@@ -129,7 +129,7 @@ class MessageSet(object):
         while not offset == end:
             try:
                 message_offset, offset = Int64.parse(buff, offset)
-                message_size, offset = Int32.parse(buff, offset)
+                _, offset = Int32.parse(buff, offset)  # message size
                 message, offset = Message.parse(buff, offset)
             except struct.error:
                 # ending messages can sometimes be cut off

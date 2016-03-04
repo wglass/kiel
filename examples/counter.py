@@ -69,7 +69,7 @@ def main():
         show_status, args.status_interval * 1000
     )
 
-    def wind_down(f):
+    def wind_down(_):
         status_callback.stop()
         loop.stop()
 

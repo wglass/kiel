@@ -116,7 +116,7 @@ def main():
         show_status, args.status_interval * 1000
     )
 
-    def stop_loop(f):
+    def stop_loop(_):
         status_callback.stop()
         loop.stop()
 

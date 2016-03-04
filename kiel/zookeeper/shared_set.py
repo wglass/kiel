@@ -33,7 +33,7 @@ class SharedSet(object):
         self.client.ensure_path(self.path)
 
         @self.client.DataWatch(self.path)
-        def set_changed(data, stat):
+        def set_changed(data, _):
             if data is not None:
                 data = self.deserialize(data)
 

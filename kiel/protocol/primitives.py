@@ -219,7 +219,7 @@ class Array(Primitive):
         count, offset = Int32.parse(buff, offset)
 
         values = []
-        for i in range(count):
+        for _ in range(count):
             value, new_offset = cls.item_class.parse(buff, offset)
 
             values.append(value)
