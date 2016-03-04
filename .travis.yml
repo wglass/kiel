@@ -5,6 +5,9 @@ envs:
   - TOXENV=pypy
 before_install:
   - pip install codecov
+  - sudo apt-get -qq update
+  - sudo apt-get install -y libsnappy-dev
+  - pip install python-snappy
 install: pip install tox
 script: tox
 after_success:
