@@ -1,0 +1,10 @@
+0.9.2
+~~~~~
+
+  * Fix issues when serializing compressed message sets
+
+  * Log unexpected exceptions when reading or writing to/from the IOStream
+
+  * Update Travis CI config to automatically deploy to pypi (hopefully)
+
+  * Handle closed connections gracefully.
