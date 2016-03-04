@@ -76,7 +76,7 @@ class GroupedConsumer(BaseConsumer):
         yield self.determine_coordinator()
 
     @gen.coroutine
-    def consume(self, topic):
+    def consume(self, topic, start=None):
         """
         Overriding ``consume()`` that handles committing offsets.
 

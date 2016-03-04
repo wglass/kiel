@@ -165,7 +165,7 @@ class Message(Part):
         ("value", Bytes),
     )
 
-    def render(self):
+    def render(self, parts=None):
         """
         Renders just like the base ``Part`` class, but with CRC32 verification.
         """
