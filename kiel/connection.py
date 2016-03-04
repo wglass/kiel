@@ -6,7 +6,7 @@ import sys
 
 from tornado import ioloop, iostream, gen, concurrent
 
-from kiel.exc import ConnectionError
+from kiel.exc import BrokerConnectionError
 from kiel.protocol import (
     metadata, coordinator,
     produce, fetch,
@@ -116,7 +116,7 @@ class Connection(object):
         f = concurrent.Future()
 
         if self.closing:
-            f.set_exception(ConnectionError(self.host, self.port))
+            f.set_exception(BrokerConnectionError(self.host, self.port))
             return f
 
         payload = message.serialize()
@@ -156,7 +156,7 @@ class Connection(object):
 
         If ``sys.exc_info()`` is set (i.e. this is being called in an exception
         handler) then pending futures will have that exc info set.  Otherwise
-        a ``ConnectionError`` is used.
+        a ``BrokerConnectionError`` is used.
         """
         if self.closing:
             return
@@ -171,7 +171,9 @@ class Connection(object):
             if any(exc_info):
                 pending.set_exc_info(sys.exc_info())
             else:
-                pending.set_exception(ConnectionError(self.host, self.port))
+                pending.set_exception(
+                    BrokerConnectionError(self.host, self.port)
+                )
 
     @gen.coroutine
     def read_message(self):

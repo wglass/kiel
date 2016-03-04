@@ -5,16 +5,16 @@ from kiel import exc
 
 class ExceptionTests(unittest.TestCase):
 
-    def test_connection_error(self):
-        e = exc.ConnectionError("kafka01", 4455)
+    def test_broker_connection_error(self):
+        e = exc.BrokerConnectionError("kafka01", 4455)
 
         self.assertEqual(e.host, "kafka01")
         self.assertEqual(e.port, 4455)
 
         self.assertEqual(str(e), "Error connecting to kafka01:4455")
 
-    def test_connection_error_with_broker_id(self):
-        e = exc.ConnectionError("kafka01", 4455, broker_id=8)
+    def test_broker_connection_error_with_broker_id(self):
+        e = exc.BrokerConnectionError("kafka01", 4455, broker_id=8)
 
         self.assertEqual(e.host, "kafka01")
         self.assertEqual(e.port, 4455)

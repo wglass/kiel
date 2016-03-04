@@ -48,7 +48,7 @@ class ConnectionTests(cases.AsyncTestCase):
 
         try:
             yield conn.send(Mock())
-        except exc.ConnectionError as e:
+        except exc.BrokerConnectionError as e:
             error = e
 
         self.assertEqual(error.host, "localhost")

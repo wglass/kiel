@@ -19,7 +19,7 @@ class NoOffsetsError(KielError):
     pass
 
 
-class ConnectionError(KielError):
+class BrokerConnectionError(KielError):
     """
     This error is raised when a single broker ``Connection`` goes bad.
     """
