@@ -15,13 +15,13 @@ Kiel: Kafka Tornado Client
     :alt: Build Status
     :target: https://travis-ci.org/wglass/kiel
 .. image::
-    https://landscape.io/github/wglass/kiel/master/landscape.svg?style=flat
-    :alt: Code Health
-    :target: https://landscape.io/github/wglass/kiel/master
+    https://codeclimate.com/github/wglass/kiel/badges/gpa.svg
+    :alt: Code Climate
+    :target: https://codeclimate.com/github/wglass/kiel
 .. image::
-    https://codecov.io/github/wglass/kiel/coverage.svg?branch=master
-    :alt: Codecov.io
-    :target: https://codecov.io/github/wglass/kiel?branch=master
+    https://codeclimate.com/github/wglass/kiel/badges/coverage.svg
+    :alt: Test Coverage
+    :target: https://codeclimate.com/github/wglass/kiel/coverage
 
 
 Kiel is a pure python Kafka_ client library for use with Tornado_
