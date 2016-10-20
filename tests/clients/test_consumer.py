@@ -6,7 +6,7 @@ from kiel.protocol import fetch, messages, errors
 from kiel.clients import consumer
 
 
-class TestConsumer(consumer.BaseConsumer):
+class FakeConsumer(consumer.BaseConsumer):
 
     @property
     def allocation(self):
@@ -155,7 +155,7 @@ class ConsumerTests(cases.ClientTestCase):
             ]
         )
 
-        c = TestConsumer(["kafka01", "kafka02"])
+        c = FakeConsumer(["kafka01", "kafka02"])
 
         yield c.connect()
 
@@ -308,7 +308,7 @@ class ConsumerTests(cases.ClientTestCase):
 
             return "%s: %s" % (val, result)
 
-        c = TestConsumer(
+        c = FakeConsumer(
             ["kafka01", "kafka02"],
             deserializer=deserializer,
             max_wait_time=500,
@@ -346,7 +346,7 @@ class ConsumerTests(cases.ClientTestCase):
     def test_consuming_when_closed_is_noop(self):
         self.add_topic("test.topic", leaders=(3,))
 
-        c = TestConsumer(["kafka01"])
+        c = FakeConsumer(["kafka01"])
 
         yield c.connect()
 
@@ -362,7 +362,7 @@ class ConsumerTests(cases.ClientTestCase):
     def test_consuming_nonexistent_topic(self):
         self.add_topic("test.topic", leaders=(3,))
 
-        c = TestConsumer(["kafka01"])
+        c = FakeConsumer(["kafka01"])
 
         yield c.connect()
 
@@ -409,7 +409,7 @@ class ConsumerTests(cases.ClientTestCase):
             ]
         )
 
-        c = TestConsumer(["kafka01"])
+        c = FakeConsumer(["kafka01"])
 
         # at this point the cluster hasn't synced, so "test.topic" is unknown
         msgs = yield c.consume("test.topic")
@@ -468,7 +468,7 @@ class ConsumerTests(cases.ClientTestCase):
             ]
         )
 
-        c = TestConsumer(["kafka01"])
+        c = FakeConsumer(["kafka01"])
 
         yield c.connect()
 
@@ -510,7 +510,7 @@ class ConsumerTests(cases.ClientTestCase):
             ]
         )
 
-        c = TestConsumer(["kafka01"])
+        c = FakeConsumer(["kafka01"])
 
         yield c.connect()
 
@@ -570,7 +570,7 @@ class ConsumerTests(cases.ClientTestCase):
             ]
         )
 
-        c = TestConsumer(["kafka01"])
+        c = FakeConsumer(["kafka01"])
 
         yield c.connect()
 
@@ -679,7 +679,7 @@ class ConsumerTests(cases.ClientTestCase):
             ]
         )
 
-        c = TestConsumer(["kafka01", "kafka02"], max_bytes=(1024 * 1024))
+        c = FakeConsumer(["kafka01", "kafka02"], max_bytes=(1024 * 1024))
 
         yield c.connect()
 

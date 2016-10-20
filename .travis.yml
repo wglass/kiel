@@ -1,17 +1,18 @@
 language: python
+python: 3.5
 envs:
   - TOXENV=py27
-  - TOXENV=py34
+  - TOXENV=py35
   - TOXENV=pypy
 before_install:
-  - pip install codecov
+  - pip install codeclimate-test-reporter
   - sudo apt-get -qq update
   - sudo apt-get install -y libsnappy-dev
   - pip install python-snappy
 install: pip install tox
 script: tox
 after_success:
-  - codecov
+  - codeclimate-test-reporter
 deploy:
   - provider: pypi
     user: wglass
@@ -19,3 +20,5 @@ deploy:
       secure: tc7INI/VL+YIQU22VD+XogrN++48mA/HHxsnVNJooDypOfk6kSr0HT0VmuizXY+eL2aS7WbI3RPQI/kDJjxpz8XnuW7JIvAOJ+EGzVXSDNprdg1Rtlg3GTxRgtTaJteiXge7DOrHuewpJVq8JifofsFW76uz3yvoFq/GaXA1wLgUPqyUQ7VqSRCDbzoBtmL7EBlHWwprXCPcgYAEP6PCKHBpmuXo3pIdPoo5rRme3Rd4MP2SRhoI7QheKhvP0p/EDzfFRt/3qfNeXZ2QT1QEdXgtAYF3uuJRzScgGIRI0TwRLCEqkqaWhFD/0g0YQwVvb+diQILv15zzdz4kIMA2xpXF1o9RsQyQFVAsRisAjJo2uV7oC7JtvqMcBzUq+S39Dl6KRKQdbcpFn739UauwmIgb27OqoPrkOiFne0I07Mbv6KA3aDv8V60YRTLMWaO0WnKEYK+enI4z2gbgmCpQ7zLQ8h2MJpHCSLraUlyJ0gf4umPBxNasGN1IVIX/8XH8zaweGG1DbVmiG8WKdgNHkZ0ljHDgK6YRTrTFkrYE7BU1UVlI+4+KQWiFwb9kzd5UMUxDCBazw5v+9/nWagquME0G035k9eO7vwhGkFvcAOS9Yk5h5H5DNVvk2+Kj62v7yDFYDRufZROB5RF+lmWENKMfv9/nfK1WjsaKFgCR1L8=
     on:
       tags: true
+    distributions: sdist bdist_wheel
+    repo: wglass/kiel
